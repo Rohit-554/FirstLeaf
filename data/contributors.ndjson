@@ -11,3 +11,5 @@
 {"name":"Ritwik","username":"ritwikt17","github":"https://github.com/ritwik1709","message":"Getting started with my first contribution in open source","addedAt":"2025-10-02T00:00:00.000Z"}
 {"name":"Dheeraj Saini","username":"Steady3099","github":"https://github.com/Steady3099","message":"My first PR!!...Excited for the open source world.","addedAt":"2025-10-03T00:00:00.000Z"}
 {"name":"Kishan Garhwal","username":"Kishan8548","github":"https://github.com/Kishan8548","message":"This is for hacktoberfest","addedAt":"2025-10-04T12:00:00.000Z"}
+{"name":"Akshat Agrawal","username":"akshat-coder2106","github":"https://github.com/akshat-coder2106","message":"Adding a badge system!","badges":["core", "helper"],"addedAt":"2025-10-05T03:30:00.000Z"}
+{"name":"Test User","username":"tester","badges":[{"type":"custom","text":"QA Team","color":"#ff6b9d"}],"message":"Testing custom badges!"}

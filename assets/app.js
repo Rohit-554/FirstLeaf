@@ -1,3 +1,17 @@
+// Helper function for custom badge text color
+function getContrastColor(hexColor) {
+  // Convert hex to RGB
+  const r = parseInt(hexColor.slice(1, 3), 16);
+  const g = parseInt(hexColor.slice(3, 5), 16);
+  const b = parseInt(hexColor.slice(5, 7), 16);
+  
+  // Calculate luminance
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  
+  // Return black or white based on luminance
+  return luminance > 0.5 ? '#1a202c' : '#ffffff';
+}
+
 async function fetchContributors() {
   const elList = document.getElementById("contributors");
   const elCount = document.getElementById("count");
@@ -46,7 +60,7 @@ async function fetchContributors() {
       })
       .filter(Boolean);
 
-         function sortContributors(contributors, sortType) {
+    function sortContributors(contributors, sortType) {
       const sorted = [...contributors]; 
       switch (sortType) {
         case "newest":
@@ -87,11 +101,10 @@ async function fetchContributors() {
       return sorted;
     }
 
-     function renderContributors(contributors) {
+    function renderContributors(contributors) {
       elList.innerHTML = "";
       const contributorElements = [];
 
-      //  Find the newest contributor once (based on addedAt)
       const newestContributor = people.reduce((latest, curr) => {
         if (!latest) return curr;
         if ((curr.addedAt || "") > (latest.addedAt || "")) {
@@ -105,21 +118,21 @@ async function fetchContributors() {
         const a = document.createElement("a");
         const profileUrl =
           p.github || (p.username ? `https://github.com/${p.username}` : "#");
-  a.href = profileUrl;
-  a.target = "_blank";
-  a.rel = "noopener";
-  a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
+        a.href = profileUrl;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
 
         const card = document.createElement("div");
         card.className = "card";
         card.role = "listitem";
 
-          if (newestContributor && p.username === newestContributor.username) {
+        if (newestContributor && p.username === newestContributor.username) {
             const badge = document.createElement("span");
             badge.className = "new-badge";
             badge.textContent = "NEW";
             card.appendChild(badge);
-          }
+        }
 
         const top = document.createElement("div");
         top.className = "top";
@@ -153,11 +166,36 @@ async function fetchContributors() {
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
 
-        // append card to link, then add to DOM
+        // --- NEW BADGE CODE STARTS HERE ---
+        if (p.badges && Array.isArray(p.badges) && p.badges.length > 0) {
+          const badgesContainer = document.createElement('div');
+          badgesContainer.className = 'badges';
+          
+          p.badges.forEach(badge => {
+            const badgeEl = document.createElement('span');
+            
+            if (typeof badge === 'string') {
+              badgeEl.className = `badge badge-${badge}`;
+              badgeEl.textContent = badge.charAt(0).toUpperCase() + badge.slice(1);
+            } else if (typeof badge === 'object') {
+              badgeEl.className = 'badge badge-custom';
+              badgeEl.textContent = badge.text || 'Badge';
+              if (badge.color) {
+                badgeEl.style.background = badge.color;
+                badgeEl.style.color = getContrastColor(badge.color);
+              }
+            }
+            
+            badgesContainer.appendChild(badgeEl);
+          });
+          
+          card.appendChild(badgesContainer);
+        }
+        // --- NEW BADGE CODE ENDS HERE ---
+
         a.appendChild(card);
         elList.appendChild(a);
 
-        // add animation class and index after insertion so animations reliably run
         (function(el, idx){
           requestAnimationFrame(() => {
             el.style.setProperty("--card-index", String(idx));
@@ -178,27 +216,19 @@ async function fetchContributors() {
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
-
-    // people.sort(
-    //   (a, b) =>
-    //     (b.addedAt || "").localeCompare(a.addedAt || "") ||
-    //     (a.name || "").localeCompare(b.name || "")
-    // );
-
-    // search functionality 
-        const searchInput = document.getElementById("searchInput");
-        if (searchInput) {
-          searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            contributorElements.forEach(({ element, name, username }) => {
-              if (name.includes(searchTerm) || username.includes(searchTerm)) {
-                element.style.display = "";
-              } else {
-                element.style.display = "none";
-              }
-            });
-          });
-        }
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        contributorElements.forEach(({ element, name, username }) => {
+          if (name.includes(searchTerm) || username.includes(searchTerm)) {
+            element.style.display = "";
+          } else {
+            element.style.display = "none";
+          }
+        });
+      });
+    }
    
     if (sortSelect) {
       sortSelect.addEventListener("change", (e) => {
@@ -206,8 +236,6 @@ async function fetchContributors() {
         sortedPeople = sortContributors(people, sortType);
         contributorElements = renderContributors(sortedPeople);
 
-        // reapply search
-        const searchInput = document.getElementById("searchInput");
         if (searchInput && searchInput.value) {
           const searchTerm = searchInput.value.toLowerCase();
           contributorElements.forEach(({ element, name, username }) => {
@@ -221,7 +249,6 @@ async function fetchContributors() {
       });
     }
 
-    // Set up search functionality once, outside the loop
     const latestPerson = sortedPeople[0];
     const totalCountEl = document.getElementById("totalCount");
     const latestContributorEl = document.getElementById("latestContributor");
@@ -248,12 +275,10 @@ function initThemeToggle() {
   const themeIcon = document.getElementById('themeIcon');
   const html = document.documentElement;
 
-  // Check for saved theme preference or default to 'dark'
   const currentTheme = localStorage.getItem('theme') || 'dark';
   html.setAttribute('data-theme', currentTheme);
   updateThemeIcon(currentTheme);
 
-  // Toggle theme on button click
   themeToggle?.addEventListener('click', () => {
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
