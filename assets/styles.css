@@ -252,3 +252,92 @@ main.container {
   outline: none;
   border-color: var(--accent);
 }
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(107, 226, 255, 0.3);
+  z-index: 1000;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(107, 226, 255, 0.4);
+}
+
+.scroll-to-top:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.scroll-to-top:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 720px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .scroll-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Respect safe areas on iOS */
+@media (max-width: 720px) {
+  .scroll-to-top {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    right: calc(1.5rem + env(safe-area-inset-right));
+  }
+}
+
+/* Animation for button pulse (optional) */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(107, 226, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(107, 226, 255, 0.5);
+  }
+}
+
+.scroll-to-top.visible {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.scroll-to-top:hover {
+  animation: none; /* Stop pulse on hover */
+}

@@ -163,9 +163,56 @@ function initThemeToggle() {
   }
 }
 
+function initScrollToTop() {
+  const scrollButton = document.getElementById('scrollToTop');
+  if (!scrollButton) return;
+
+  let isScrolling;
+
+  function toggleScrollButton() {
+    const scrollThreshold = 400;
+
+    if (window.pageYOffset > scrollThreshold) {
+      scrollButton.classList.add('visible');
+    } else {
+      scrollButton.classList.remove('visible');
+    }
+  }
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // Throttled scroll handler
+  window.addEventListener('scroll', () => {
+    // Clear timeout if it exists
+    window.clearTimeout(isScrolling);
+
+    // Set a timeout to run after scrolling ends
+    isScrolling = setTimeout(toggleScrollButton, 50);
+  });
+
+  scrollButton.addEventListener('click', scrollToTop);
+
+  // Keyboard support
+  scrollButton.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollToTop();
+    }
+  });
+
+  // Initial check
+  toggleScrollButton();
+}
+
 function boot() {
   fetchContributors();
   initThemeToggle();
+  initScrollToTop();
 }
 
 boot();
