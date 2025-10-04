@@ -146,7 +146,6 @@ main.container {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 14px;
-  /* FIX 1: Fix the size of the card */
   height: 100%;
 }
 .card a {
@@ -161,7 +160,6 @@ main.container {
 .card .username {
   color: var(--muted);
   font-size: 0.95rem;
-  /* FIX 2: Fix the subtitle text boundary */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -172,7 +170,6 @@ main.container {
   gap: 0.5rem;
   margin-top: 0.7rem;
   color: var(--muted);
-  /* FIX 3: Ellipsis the description text after two lines */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -310,10 +307,6 @@ main.container {
   position: relative; /* Add this to existing .card styles */
 }
 
-
-
-
-/* Update search-container to be part of controls */
 .controls-container {
   display: flex;
   gap: 1rem;
@@ -381,7 +374,6 @@ main.container {
   background: rgba(255, 255, 255, 0.1);
 }
 
-
 /* Mobile responsiveness */
 @media (max-width: 720px) {
   .controls-container {
@@ -433,8 +425,6 @@ main.container {
   will-change: transform, opacity;
 }
 
-/* Animated state applied by JS via the .contributor-link class. Uses
-   --card-index (set in JS) for staggered delays. */
 .contributor-link {
   animation-name: fadeInUp, scaleIn;
   animation-duration: 0.45s, 0.36s;
@@ -445,9 +435,7 @@ main.container {
   opacity: 1; /* becomes visible when class applied */
 }
 
-/* Hover effects for the animated links */
 .contributor-link:hover {
-  /* lift and a subtle vertical stretch on hover */
   transform: translateY(-4px) scaleY(1.03);
   transform-origin: center;
 }
@@ -463,28 +451,12 @@ main.container {
 }
 
 .card img {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .contributor-link:hover .card img {
-  transform: scale(1.05) rotate(0deg) scaleY(1.02);
-}
-
-/* If you have a NEW badge, add pulse animation */
-.new-badge {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Smooth color transitions */
-.card .name,
-.card .username,
-.card .meta {
-  transition: color 0.2s ease;
-}
-
-/* Loading animation for the initial state */
-.loading {
-  animation: pulse 1.5s ease-in-out infinite;
+  transform: scale(1.05) rotate(2deg) scaleY(1.04);
+  filter: brightness(1.1);
 }
 
 @keyframes scaleIn {
@@ -497,14 +469,7 @@ main.container {
     transform: scale(1);
   }
 }
-.card img {
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
 
-.contributor-link:hover .card img {
-  transform: scale(1.05) rotate(2deg) scaleY(1.04);
-  filter: brightness(1.1);
-}
 @media (prefers-reduced-motion: reduce) {
   .cards > a {
     animation: none;
@@ -521,4 +486,99 @@ main.container {
     animation: none;
     transition: none;
   }
+}
+
+/* --- NEW BADGE STYLES START HERE --- */
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+/* Badge type colors */
+.badge-first {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1a202c;
+}
+
+.badge-core {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.badge-top {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white;
+}
+
+.badge-helper {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #1a202c;
+}
+
+.badge-early {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: #1a202c;
+}
+
+.badge-milestone {
+  background: linear-gradient(135deg, #fa709a, #fee140);
+  color: #1a202c;
+}
+
+.badge-custom {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Add icon support */
+.badge::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.badge-first::before {
+  content: "🥇";
+  width: auto;
+}
+
+.badge-core::before {
+  content: "⭐";
+  width: auto;
+}
+
+.badge-top::before {
+  content: "🏆";
+  width: auto;
+}
+
+.badge-helper::before {
+  content: "🤝";
+  width: auto;
+}
+
+.badge-early::before {
+  content: "🌱";
+  width: auto;
+}
+
+.badge-milestone::before {
+  content: "🎯";
+  width: auto;
 }
