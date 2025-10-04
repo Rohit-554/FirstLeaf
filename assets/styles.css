@@ -40,7 +40,6 @@ body {
       transparent 50%
     ),
     var(--bg);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 [data-theme="light"] body {
@@ -51,7 +50,6 @@ body {
     ),
     var(--bg);
 }
-/* Remove underlines from all links across the site */
 a,
 a:hover,
 a:focus,
@@ -146,8 +144,8 @@ main.container {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 14px;
-  /* FIX 1: Fix the size of the card */
   height: 100%;
+  position: relative;
 }
 .card a {
   text-decoration: none;
@@ -161,7 +159,6 @@ main.container {
 .card .username {
   color: var(--muted);
   font-size: 0.95rem;
-  /* FIX 2: Fix the subtitle text boundary */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -172,7 +169,6 @@ main.container {
   gap: 0.5rem;
   margin-top: 0.7rem;
   color: var(--muted);
-  /* FIX 3: Ellipsis the description text after two lines */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -197,6 +193,7 @@ main.container {
 .loading {
   margin: 1rem 0;
   color: var(--muted);
+  animation: pulse 1.5s ease-in-out infinite;
 }
 .error {
   margin: 1rem 0;
@@ -222,35 +219,6 @@ main.container {
 .site-footer .container {
   padding: 1.2rem 0;
   color: var(--muted);
-}
-
-@media (max-width: 720px) {
-  .site-header .container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .actions {
-    align-self: stretch;
-  }
-}
-.search-container {
-  margin: 1.5rem 0;
-}
-
-#searchInput {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 1rem;
-  font-family: inherit;
-}
-
-#searchInput:focus {
-  outline: none;
-  border-color: var(--accent);
 }
 
 .stats-banner {
@@ -286,12 +254,6 @@ main.container {
   font-weight: 800;
 }
 
-@media (max-width: 720px) {
-  .stats-banner {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
 .new-badge {
   position: absolute;
   top: 8px;
@@ -304,16 +266,9 @@ main.container {
   border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.card {
-  position: relative; /* Add this to existing .card styles */
-}
-
-
-
-
-/* Update search-container to be part of controls */
 .controls-container {
   display: flex;
   gap: 1rem;
@@ -324,7 +279,23 @@ main.container {
 .search-container {
   flex: 1;
   min-width: 250px;
-  margin: 0; /* Remove existing margin */
+  margin: 0;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .sort-container {
@@ -350,6 +321,11 @@ main.container {
   cursor: pointer;
   min-width: 150px;
   transition: border-color 0.2s ease, background-color 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a7b3d0' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
 }
 
 .sort-select:hover {
@@ -363,45 +339,53 @@ main.container {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Style the dropdown arrow */
-.sort-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a7b3d0' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  padding-right: 2.5rem;
-}
-
-/* Style dropdown options */
 .sort-select option {
   background: var(--panel);
   color: var(--text);
 }
-.sort-select option:hover {
-  background: rgba(255, 255, 255, 0.1);
+
+.cards > a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  opacity: 0;
+  transform: translateY(12px) scale(0.99);
+  will-change: transform, opacity;
 }
 
-
-/* Mobile responsiveness */
-@media (max-width: 720px) {
-  .controls-container {
-    flex-direction: column;
-  }
-  
-  .search-container {
-    width: 100%;
-  }
-  
-  .sort-container {
-    width: 100%;
-  }
-  
-  .sort-select {
-    flex: 1;
-  }
+.contributor-link {
+  animation-name: fadeInUp, scaleIn;
+  animation-duration: 0.45s, 0.36s;
+  animation-timing-function: cubic-bezier(0.2,0.8,0.2,1), cubic-bezier(0.34,1.56,0.64,1);
+  animation-fill-mode: forwards, forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.06s), calc(var(--card-index, 0) * 0.06s + 0.02s);
+  transition: opacity 0.45s ease, transform 0.28s ease, box-shadow 0.28s ease;
+  opacity: 1;
 }
 
-/* Fade-in animation */
+.contributor-link:hover {
+  transform: translateY(-4px) scaleY(1.03);
+  transform-origin: center;
+}
+
+.contributor-link:hover .card {
+  box-shadow: 0 8px 24px rgba(107, 226, 255, 0.15);
+  border-color: rgba(107, 226, 255, 0.3);
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.contributor-link:hover .card img {
+  transform: scale(1.05) rotate(2deg) scaleY(1.04);
+  filter: brightness(1.1);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -413,7 +397,6 @@ main.container {
   }
 }
 
-/* Pulse animation for badges */
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
@@ -421,70 +404,6 @@ main.container {
   50% {
     opacity: 0.7;
   }
-}
-
-/* Baseline for contributor links inside .cards */
-.cards > a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  opacity: 0; /* start hidden until animation/class applied */
-  transform: translateY(12px) scale(0.99);
-  will-change: transform, opacity;
-}
-
-/* Animated state applied by JS via the .contributor-link class. Uses
-   --card-index (set in JS) for staggered delays. */
-.contributor-link {
-  animation-name: fadeInUp, scaleIn;
-  animation-duration: 0.45s, 0.36s;
-  animation-timing-function: cubic-bezier(0.2,0.8,0.2,1), cubic-bezier(0.34,1.56,0.64,1);
-  animation-fill-mode: forwards, forwards;
-  animation-delay: calc(var(--card-index, 0) * 0.06s), calc(var(--card-index, 0) * 0.06s + 0.02s);
-  transition: opacity 0.45s ease, transform 0.28s ease, box-shadow 0.28s ease;
-  opacity: 1; /* becomes visible when class applied */
-}
-
-/* Hover effects for the animated links */
-.contributor-link:hover {
-  /* lift and a subtle vertical stretch on hover */
-  transform: translateY(-4px) scaleY(1.03);
-  transform-origin: center;
-}
-
-.contributor-link:hover .card {
-  box-shadow: 0 8px 24px rgba(107, 226, 255, 0.15);
-  border-color: rgba(107, 226, 255, 0.3);
-}
-
-/* Smooth transitions for card elements */
-.card {
-  transition: all 0.3s ease;
-}
-
-.card img {
-  transition: transform 0.3s ease;
-}
-
-.contributor-link:hover .card img {
-  transform: scale(1.05) rotate(0deg) scaleY(1.02);
-}
-
-/* If you have a NEW badge, add pulse animation */
-.new-badge {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Smooth color transitions */
-.card .name,
-.card .username,
-.card .meta {
-  transition: color 0.2s ease;
-}
-
-/* Loading animation for the initial state */
-.loading {
-  animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes scaleIn {
@@ -497,28 +416,123 @@ main.container {
     transform: scale(1);
   }
 }
-.card img {
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
 
-.contributor-link:hover .card img {
-  transform: scale(1.05) rotate(2deg) scaleY(1.04);
-  filter: brightness(1.1);
-}
 @media (prefers-reduced-motion: reduce) {
-  .cards > a {
-    animation: none;
-    opacity: 1;
-  }
-  
-  .cards > a:hover {
-    transform: none;
-  }
-  
+  .cards > a,
+  .cards > a:hover,
   .card img,
   .card,
   .new-badge {
     animation: none;
     transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .actions {
+    align-self: stretch;
+  }
+  .stats-banner {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .controls-container {
+    flex-direction: column;
+  }
+  .search-container,
+  .sort-container,
+  .sort-select {
+    width: 100%;
+  }
+}
+
+/* --- NEW THEME CODE STARTS HERE --- */
+
+/* Ocean Blue Theme */
+[data-theme="ocean"] {
+  --bg: #0a1929;
+  --panel: #132f4c;
+  --text: #e3f2fd;
+  --muted: #90caf9;
+  --accent: #42a5f5;
+  --accent-2: #29b6f6;
+  --danger: #ef5350;
+}
+/* Forest Green Theme */
+[data-theme="forest"] {
+  --bg: #1b2a1a;
+  --panel: #2d3e2c;
+  --text: #e8f5e9;
+  --muted: #81c784;
+  --accent: #66bb6a;
+  --accent-2: #4caf50;
+  --danger: #ef5350;
+}
+/* Sunset Orange Theme */
+[data-theme="sunset"] {
+  --bg: #2a1810;
+  --panel: #3d2618;
+  --text: #fff3e0;
+  --muted: #ffb74d;
+  --accent: #ff9800;
+  --accent-2: #fb8c00;
+  --danger: #f44336;
+}
+/* Purple Galaxy Theme */
+[data-theme="galaxy"] {
+  --bg: #1a0f2e;
+  --panel: #2d1b4e;
+  --text: #ede7f6;
+  --muted: #b39ddb;
+  --accent: #9575cd;
+  --accent-2: #7e57c2;
+  --danger: #ec407a;
+}
+/* Add smooth transitions */
+:root,
+[data-theme] {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+body {
+  transition: background 0.5s ease;
+}
+
+.card,
+.btn,
+#searchInput,
+.sort-select {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Style the new theme selector */
+.theme-select {
+  padding: 0.6rem 1rem;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-select:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.theme-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .theme-select {
+    width: 100%;
   }
 }

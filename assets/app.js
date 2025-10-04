@@ -5,7 +5,6 @@ async function fetchContributors() {
   const elError = document.getElementById("error");
   const sortSelect = document.getElementById("sortSelect");
 
-  // Resolve repo URL automatically on GitHub Pages, or use a provided override
   function detectRepoUrl() {
     try {
       if (location.hostname.endsWith("github.io")) {
@@ -46,8 +45,8 @@ async function fetchContributors() {
       })
       .filter(Boolean);
 
-         function sortContributors(contributors, sortType) {
-      const sorted = [...contributors]; 
+    function sortContributors(contributors, sortType) {
+      const sorted = [...contributors];
       switch (sortType) {
         case "newest":
           sorted.sort(
@@ -87,11 +86,10 @@ async function fetchContributors() {
       return sorted;
     }
 
-     function renderContributors(contributors) {
+    function renderContributors(contributors) {
       elList.innerHTML = "";
       const contributorElements = [];
 
-      //  Find the newest contributor once (based on addedAt)
       const newestContributor = people.reduce((latest, curr) => {
         if (!latest) return curr;
         if ((curr.addedAt || "") > (latest.addedAt || "")) {
@@ -105,21 +103,21 @@ async function fetchContributors() {
         const a = document.createElement("a");
         const profileUrl =
           p.github || (p.username ? `https://github.com/${p.username}` : "#");
-  a.href = profileUrl;
-  a.target = "_blank";
-  a.rel = "noopener";
-  a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
+        a.href = profileUrl;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
 
         const card = document.createElement("div");
         card.className = "card";
         card.role = "listitem";
 
-          if (newestContributor && p.username === newestContributor.username) {
-            const badge = document.createElement("span");
-            badge.className = "new-badge";
-            badge.textContent = "NEW";
-            card.appendChild(badge);
-          }
+        if (newestContributor && p.username === newestContributor.username) {
+          const badge = document.createElement("span");
+          badge.className = "new-badge";
+          badge.textContent = "NEW";
+          card.appendChild(badge);
+        }
 
         const top = document.createElement("div");
         top.className = "top";
@@ -152,12 +150,10 @@ async function fetchContributors() {
 
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
-
-        // append card to link, then add to DOM
+        
         a.appendChild(card);
         elList.appendChild(a);
 
-        // add animation class and index after insertion so animations reliably run
         (function(el, idx){
           requestAnimationFrame(() => {
             el.style.setProperty("--card-index", String(idx));
@@ -178,36 +174,26 @@ async function fetchContributors() {
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        contributorElements.forEach(({ element, name, username }) => {
+          if (name.includes(searchTerm) || username.includes(searchTerm)) {
+            element.style.display = "";
+          } else {
+            element.style.display = "none";
+          }
+        });
+      });
+    }
 
-    // people.sort(
-    //   (a, b) =>
-    //     (b.addedAt || "").localeCompare(a.addedAt || "") ||
-    //     (a.name || "").localeCompare(b.name || "")
-    // );
-
-    // search functionality 
-        const searchInput = document.getElementById("searchInput");
-        if (searchInput) {
-          searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            contributorElements.forEach(({ element, name, username }) => {
-              if (name.includes(searchTerm) || username.includes(searchTerm)) {
-                element.style.display = "";
-              } else {
-                element.style.display = "none";
-              }
-            });
-          });
-        }
-   
     if (sortSelect) {
       sortSelect.addEventListener("change", (e) => {
         const sortType = e.target.value;
         sortedPeople = sortContributors(people, sortType);
         contributorElements = renderContributors(sortedPeople);
 
-        // reapply search
-        const searchInput = document.getElementById("searchInput");
         if (searchInput && searchInput.value) {
           const searchTerm = searchInput.value.toLowerCase();
           contributorElements.forEach(({ element, name, username }) => {
@@ -221,7 +207,6 @@ async function fetchContributors() {
       });
     }
 
-    // Set up search functionality once, outside the loop
     const latestPerson = sortedPeople[0];
     const totalCountEl = document.getElementById("totalCount");
     const latestContributorEl = document.getElementById("latestContributor");
@@ -243,36 +228,42 @@ async function fetchContributors() {
   }
 }
 
-function initThemeToggle() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const html = document.documentElement;
+// --- NEW THEME SELECTOR FUNCTIONS ---
+// These replace the old theme toggle logic.
 
-  // Check for saved theme preference or default to 'dark'
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  html.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
+function initThemeSelector() {
+  const themeSelect = document.getElementById('themeSelect');
+  if (!themeSelect) return;
 
-  // Toggle theme on button click
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  // Load saved theme or use default
+  const savedTheme = localStorage.getItem('colorTheme') || 'default';
+  applyTheme(savedTheme);
+  themeSelect.value = savedTheme;
 
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
+  // Listen for theme changes
+  themeSelect.addEventListener('change', (e) => {
+    const theme = e.target.value;
+    applyTheme(theme);
+localStorage.setItem('colorTheme', theme);
   });
+}
 
-  function updateThemeIcon(theme) {
-    if (themeIcon) {
-      themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
+function applyTheme(theme) {
+  const html = document.documentElement;
+  
+  if (theme === 'default') {
+    html.removeAttribute('data-theme');
+  } else {
+    html.setAttribute('data-theme', theme);
   }
 }
 
+// --- BOOT FUNCTION ---
+// This function starts everything.
+
 function boot() {
   fetchContributors();
-  initThemeToggle();
+  initThemeSelector(); // <-- We now call your new function here.
 }
 
 boot();
