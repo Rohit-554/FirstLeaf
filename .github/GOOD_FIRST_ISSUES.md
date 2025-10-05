@@ -1,10 +1,10 @@
 # Good First Issues Created
 
-This document provides an overview of the 5 good first issues created for the FirstLeaf project.
+This document provides an overview of the good first issues created for the FirstLeaf project.
 
 ## Overview
 
-Five issue templates have been created in `.github/ISSUE_TEMPLATE/` to help new contributors get started with the FirstLeaf project. These issues are categorized by difficulty and type:
+Multiple issue templates have been created in `.github/ISSUE_TEMPLATE/` to help new contributors get started with the FirstLeaf project. These issues are categorized by difficulty and type, ranging from simple documentation fixes to more complex feature additions.
 
 ## Issue Templates
 
@@ -32,13 +32,14 @@ Five issue templates have been created in `.github/ISSUE_TEMPLATE/` to help new 
 - **Skills Learned**: Code formatting, code style consistency
 - **Estimated Time**: 5-10 minutes
 
-### 4. ✨ Add Search/Filter Feature (Intermediate)
+### 4. ✨ Add Search/Filter Feature (Intermediate) ~~COMPLETED~~
 **File**: `04-add-search-feature.md`
 - **Type**: Feature, Enhancement
 - **Difficulty**: ⭐⭐⭐ (Intermediate)
 - **Description**: Add search functionality to filter contributors by name/username
 - **Skills Learned**: DOM manipulation, event handling, HTML/CSS/JavaScript integration
 - **Estimated Time**: 30-60 minutes
+- **Status**: ✅ Implemented in the repository
 
 ### 5. 🌓 Add Dark/Light Mode Toggle (Intermediate)
 **File**: `05-add-dark-light-mode-toggle.md`
@@ -47,6 +48,70 @@ Five issue templates have been created in `.github/ISSUE_TEMPLATE/` to help new 
 - **Description**: Add theme toggle button with localStorage persistence
 - **Skills Learned**: CSS variables, localStorage API, theming, accessibility
 - **Estimated Time**: 45-90 minutes
+
+### 6. 📊 Add Contributor Statistics Display (Intermediate)
+**File**: `06-add-contributor-statistics.md`
+- **Type**: Feature, Enhancement, UI/UX
+- **Difficulty**: ⭐⭐⭐ (Intermediate)
+- **Description**: Display total contributors count and highlight the latest contributor
+- **Skills Learned**: DOM manipulation, data visualization, statistics display
+- **Estimated Time**: 30-45 minutes
+
+### 7. 🔗 Add Social Media Links (Intermediate)
+**File**: `07-add-social-media-links.md`
+- **Type**: Feature, Enhancement
+- **Difficulty**: ⭐⭐⭐ (Intermediate)
+- **Description**: Allow contributors to add optional social media links to their profiles
+- **Skills Learned**: Data structure extension, SVG icons, event handling
+- **Estimated Time**: 45-60 minutes
+
+### 8. ✨ Add Animation Effects (Intermediate)
+**File**: `08-add-animation-effects.md`
+- **Type**: Enhancement, UI/UX
+- **Difficulty**: ⭐⭐⭐ (Intermediate)
+- **Description**: Add smooth animations and hover effects to contributor cards
+- **Skills Learned**: CSS animations, transitions, keyframes, performance optimization
+- **Estimated Time**: 30-45 minutes
+
+### 9. 🔄 Add Sorting Options (Intermediate-Advanced)
+**File**: `09-add-sorting-options.md`
+- **Type**: Feature, Enhancement
+- **Difficulty**: ⭐⭐⭐⭐ (Intermediate-Advanced)
+- **Description**: Add dropdown to sort contributors by different criteria
+- **Skills Learned**: Array sorting, select elements, state management
+- **Estimated Time**: 60-90 minutes
+
+### 10. 📱 Improve Mobile Responsiveness (Intermediate)
+**File**: `10-improve-mobile-responsiveness.md`
+- **Type**: Enhancement, UI/UX, Mobile
+- **Difficulty**: ⭐⭐⭐ (Intermediate)
+- **Description**: Enhance mobile user experience with better layouts and touch interactions
+- **Skills Learned**: Responsive design, media queries, touch events, mobile UX
+- **Estimated Time**: 45-75 minutes
+
+### 11. 🎖️ Add Contributor Badge System (Intermediate-Advanced)
+**File**: `11-add-contributor-badges.md`
+- **Type**: Feature, Enhancement, UI/UX
+- **Difficulty**: ⭐⭐⭐⭐ (Intermediate-Advanced)
+- **Description**: Add special badges to highlight different types of contributors
+- **Skills Learned**: Data structures, conditional rendering, visual design
+- **Estimated Time**: 60-90 minutes
+
+### 12. ⬆️ Add Scroll to Top Button (Easy-Intermediate)
+**File**: `12-add-scroll-to-top.md`
+- **Type**: Feature, Enhancement, UI/UX
+- **Difficulty**: ⭐⭐ (Easy-Intermediate)
+- **Description**: Add floating button that appears when scrolling to quickly return to top
+- **Skills Learned**: Scroll events, smooth scrolling, IntersectionObserver
+- **Estimated Time**: 30-45 minutes
+
+### 13. 🎨 Add Custom Color Themes (Intermediate)
+**File**: `13-add-color-themes.md`
+- **Type**: Feature, Enhancement, UI/UX, Design
+- **Difficulty**: ⭐⭐⭐ (Intermediate)
+- **Description**: Create alternative color themes that users can select
+- **Skills Learned**: CSS custom properties, theming, localStorage, color theory
+- **Estimated Time**: 60-90 minutes
 
 ## How to Use These Templates
 
@@ -107,22 +172,29 @@ The issues use the following labels:
 ## Future Enhancements
 
 Consider creating additional issue templates for:
-- Adding more contributor fields (location, bio, etc.)
-- Improving mobile responsiveness
-- Adding contributor statistics
-- Creating a contribution timeline
-- Adding animation effects
-- Implementing pagination for contributors
+- Integration with GitHub API to fetch contributor data automatically
+- Adding contributor timeline/activity visualization
+- Creating a contribution leaderboard
+- Implementing pagination or infinite scroll for large contributor lists
+- Adding contributor profiles with detailed contribution history
+- Creating an admin dashboard for maintainers
+- Adding multilingual support (i18n)
+- Creating automated contributor recognition system
 
 ## Notes
 
 - All issues are beginner-friendly with detailed instructions
-- Issues 1-3 are great for first-time contributors
-- Issues 4-5 are better for those with some JavaScript experience
+- Issues 1-3 are great for absolute first-time contributors
+- Issues 4-8 are suitable for those with basic JavaScript experience
+- Issues 9-13 are better for contributors with intermediate skills
+- Issue 4 (Search Feature) has been completed and is already in the codebase
 - All templates include testing checklists to ensure quality
+- Each issue provides multiple implementation approaches when applicable
+- Issues are designed to be completed independently without dependencies
 
 ---
 
-**Created**: October 2024
-**Purpose**: Help new contributors make their first pull request
+**Created**: October 2024  
+**Updated**: January 2025  
+**Purpose**: Help new contributors make their first pull request  
 **Repository**: FirstLeaf - First Pull Request Playground

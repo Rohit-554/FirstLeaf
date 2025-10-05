@@ -3,6 +3,7 @@ async function fetchContributors() {
   const elCount = document.getElementById("count");
   const elLoading = document.getElementById("loading");
   const elError = document.getElementById("error");
+  const sortSelect = document.getElementById("sortSelect");
 
   // Resolve repo URL automatically on GitHub Pages, or use a provided override
   function detectRepoUrl() {
@@ -26,15 +27,11 @@ async function fetchContributors() {
   }
 
   try {
-    const res = await fetch("./data/contributors.ndjson", {
-      cache: "no-store",
-    });
+    const res = await fetch("./data/contributors.ndjson", { cache: "no-store" });
     if (!res.ok) throw new Error("Network error");
+
     const text = await res.text();
-    const lines = text
-      .split(/\n+/)
-      .map((l) => l.trim())
-      .filter(Boolean);
+    const lines = text.split(/\n+/).map((l) => l.trim()).filter(Boolean);
     const people = lines
       .map((line) => {
         try {
@@ -45,76 +42,141 @@ async function fetchContributors() {
       })
       .filter(Boolean);
 
-    people.sort(
-      (a, b) =>
-        (b.addedAt || "").localeCompare(a.addedAt || "") ||
-        (a.name || "").localeCompare(b.name || "")
-    );
-
-    const contributorElements = [];
-
-    elList.innerHTML = "";
-    for (const p of people) {
-      const a = document.createElement("a");
-      const profileUrl =
-        p.github || (p.username ? `https://github.com/${p.username}` : "#");
-      a.href = profileUrl;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.ariaLabel = `Open ${p.name || p.username || "contributor"} on GitHub`;
-
-      const card = document.createElement("div");
-      card.className = "card";
-      card.role = "listitem";
-
-      const top = document.createElement("div");
-      top.className = "top";
-
-      const img = document.createElement("img");
-      img.src =
-        p.avatar || `https://avatars.githubusercontent.com/${p.username || ""}`;
-      img.alt = `${p.name || p.username || "Contributor"} avatar`;
-      img.loading = "lazy";
-
-      const info = document.createElement("div");
-      const name = document.createElement("div");
-      name.className = "name";
-      name.textContent = p.name || "Anonymous";
-
-      const username = document.createElement("div");
-      username.className = "username";
-      username.textContent = p.username ? `@${p.username}` : "";
-
-      info.appendChild(name);
-      info.appendChild(username);
-
-      top.appendChild(img);
-      top.appendChild(info);
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      if (p.message) meta.textContent = p.message;
-
-      card.appendChild(top);
-      if (p.message) card.appendChild(meta);
-
-      a.appendChild(card);
-      elList.appendChild(a);
-
-      // Cache element and searchable data
-      contributorElements.push({
-        element: a,
-        name: (p.name || "").toLowerCase(),
-        username: (p.username || "").toLowerCase(),
-      });
+    function sortContributors(contributors, sortType) {
+      const sorted = [...contributors];
+      switch (sortType) {
+        case "newest":
+          sorted.sort(
+            (a, b) =>
+              (b.addedAt || "").localeCompare(a.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+          break;
+        case "oldest":
+          sorted.sort(
+            (a, b) =>
+              (a.addedAt || "").localeCompare(b.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+          break;
+        case "name-asc":
+          sorted.sort((a, b) =>
+            (a.name || a.username || "").localeCompare(
+              b.name || b.username || ""
+            )
+          );
+          break;
+        case "name-desc":
+          sorted.sort((a, b) =>
+            (b.name || b.username || "").localeCompare(
+              a.name || a.username || ""
+            )
+          );
+          break;
+        default:
+          sorted.sort(
+            (a, b) =>
+              (b.addedAt || "").localeCompare(a.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+      }
+      return sorted;
     }
 
-    // Set up search functionality once, outside the loop
+    function renderContributors(contributors) {
+      elList.innerHTML = "";
+      const contributorElements = [];
+
+      const newestContributor = people.reduce((latest, curr) => {
+        if (!latest) return curr;
+        if ((curr.addedAt || "") > (latest.addedAt || "")) {
+          return curr;
+        }
+        return latest;
+      }, null);
+
+      for (let i = 0; i < contributors.length; i++) {
+        const p = contributors[i];
+        const a = document.createElement("a");
+        const profileUrl =
+          p.github || (p.username ? `https://github.com/${p.username}` : "#");
+        a.href = profileUrl;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.setAttribute(
+          "aria-label",
+          `Open ${p.name || p.username || "contributor"} on GitHub`
+        );
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.role = "listitem";
+
+        if (newestContributor && p.username === newestContributor.username) {
+          const badge = document.createElement("span");
+          badge.className = "new-badge";
+          badge.textContent = "NEW";
+          card.appendChild(badge);
+        }
+
+        const top = document.createElement("div");
+        top.className = "top";
+
+        const img = document.createElement("img");
+        img.src =
+          p.avatar ||
+          `https://avatars.githubusercontent.com/${p.username || ""}`;
+        img.alt = `${p.name || p.username || "Contributor"} avatar`;
+        img.loading = "lazy";
+
+        const info = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = p.name || "Anonymous";
+
+        const username = document.createElement("div");
+        username.className = "username";
+        username.textContent = p.username ? `@${p.username}` : "";
+
+        info.appendChild(name);
+        info.appendChild(username);
+        top.appendChild(img);
+        top.appendChild(info);
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        if (p.message) meta.textContent = p.message;
+
+        card.appendChild(top);
+        if (p.message) card.appendChild(meta);
+
+        a.appendChild(card);
+        elList.appendChild(a);
+
+        (function (el, idx) {
+          requestAnimationFrame(() => {
+            el.style.setProperty("--card-index", String(idx));
+            el.classList.add("contributor-link");
+          });
+        })(a, i);
+
+        contributorElements.push({
+          element: a,
+          name: (p.name || "").toLowerCase(),
+          username: (p.username || "").toLowerCase(),
+        });
+      }
+
+      return contributorElements;
+    }
+
+    let sortedPeople = sortContributors(people, "newest");
+    let contributorElements = renderContributors(sortedPeople);
+
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
-
         contributorElements.forEach(({ element, name, username }) => {
           if (name.includes(searchTerm) || username.includes(searchTerm)) {
             element.style.display = "";
@@ -123,6 +185,35 @@ async function fetchContributors() {
           }
         });
       });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", (e) => {
+        const sortType = e.target.value;
+        sortedPeople = sortContributors(people, sortType);
+        contributorElements = renderContributors(sortedPeople);
+
+        if (searchInput && searchInput.value) {
+          const searchTerm = searchInput.value.toLowerCase();
+          contributorElements.forEach(({ element, name, username }) => {
+            if (name.includes(searchTerm) || username.includes(searchTerm)) {
+              element.style.display = "";
+            } else {
+              element.style.display = "none";
+            }
+          });
+        }
+      });
+    }
+
+    const latestPerson = sortedPeople[0];
+    const totalCountEl = document.getElementById("totalCount");
+    const latestContributorEl = document.getElementById("latestContributor");
+
+    if (totalCountEl) totalCountEl.textContent = people.length;
+    if (latestContributorEl && latestPerson) {
+      latestContributorEl.textContent =
+        latestPerson.name || latestPerson.username || "Unknown";
     }
 
     elCount.textContent = `${people.length} contributor${
@@ -136,83 +227,87 @@ async function fetchContributors() {
   }
 }
 
-function initThemeToggle() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const html = document.documentElement;
-
-  // Check for saved theme preference or default to 'dark'
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  html.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
-
-  // Toggle theme on button click
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  });
-
-  function updateThemeIcon(theme) {
-    if (themeIcon) {
-      themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
-  }
-}
-
 function initScrollToTop() {
-  const scrollButton = document.getElementById('scrollToTop');
+  const scrollButton = document.getElementById("scrollToTop");
   if (!scrollButton) return;
 
   let isScrolling;
 
   function toggleScrollButton() {
     const scrollThreshold = 400;
-
     if (window.pageYOffset > scrollThreshold) {
-      scrollButton.classList.add('visible');
+      scrollButton.classList.add("visible");
     } else {
-      scrollButton.classList.remove('visible');
+      scrollButton.classList.remove("visible");
     }
   }
 
   function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // Throttled scroll handler
-  window.addEventListener('scroll', () => {
-    // Clear timeout if it exists
+  window.addEventListener("scroll", () => {
     window.clearTimeout(isScrolling);
-
-    // Set a timeout to run after scrolling ends
     isScrolling = setTimeout(toggleScrollButton, 50);
   });
 
-  scrollButton.addEventListener('click', scrollToTop);
+  scrollButton.addEventListener("click", scrollToTop);
 
-  // Keyboard support
-  scrollButton.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  scrollButton.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       scrollToTop();
     }
   });
 
-  // Initial check
   toggleScrollButton();
+}
+
+function initScrollProgress() {
+  const progressBar = document.getElementById("scrollProgress");
+  if (!progressBar) return;
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = `${scrollPercent}%`;
+  }
+
+  window.addEventListener("scroll", updateProgress);
+  updateProgress();
+}
+
+function initThemeToggle() {
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+  const html = document.documentElement;
+
+  const currentTheme = localStorage.getItem("theme") || "dark";
+  html.setAttribute("data-theme", currentTheme);
+  updateThemeIcon(currentTheme);
+
+  themeToggle?.addEventListener("click", () => {
+    const currentTheme = html.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    updateThemeIcon(newTheme);
+  });
+
+  function updateThemeIcon(theme) {
+    if (themeIcon) {
+      themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
+  }
 }
 
 function boot() {
   fetchContributors();
   initThemeToggle();
   initScrollToTop();
+  initScrollProgress();
 }
 
 boot();

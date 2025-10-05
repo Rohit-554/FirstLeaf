@@ -21,6 +21,7 @@
     />
   </head>
   <body>
+    <div id="scrollProgress"></div>
     <header class="site-header">
       <div class="container">
         <h1>FirstLeaf</h1>
@@ -28,12 +29,8 @@
           Make your first pull request — add your name, get featured here.
         </p>
         <nav class="actions">
-          <a class="btn" id="repoLink" target="_blank" rel="noopener"
-            >View Repo</a
-          >
-          <a class="btn primary" id="howToContribute" href="#contribute"
-            >How to contribute</a
-          >
+          <a class="btn" id="repoLink" target="_blank" rel="noopener">View Repo</a>
+          <a class="btn primary" id="howToContribute" href="#contribute">How to contribute</a>
           <button id="themeToggle" class="btn theme-toggle" aria-label="Toggle theme">
             <span id="themeIcon">☀️</span>
           </button>
@@ -45,21 +42,39 @@
       <section aria-labelledby="contributors-title">
         <div class="list-header">
           <h2 id="contributors-title">Contributors</h2>
-          <span
-            id="count"
-            class="count"
-            aria-live="polite"
-            aria-atomic="true"
-          ></span>
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search contributors by name or username..."
-              aria-label="Search contributors"
-            />
+          <span id="count" class="count" aria-live="polite" aria-atomic="true"></span>
+          <div class="controls-container">
+            <div class="search-container">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search contributors by name or username..."
+                aria-label="Search contributors"
+              />
+            </div>
+            <div class="sort-container">
+              <label for="sortSelect" class="sort-label">Sort by:</label>
+              <select id="sortSelect" class="sort-select" aria-label="Sort contributors">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="stats-banner">
+            <div class="stat-item">
+              <span class="stat-label">Total Contributors</span>
+              <span class="stat-value" id="totalCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Latest Contributor</span>
+              <span class="stat-value" id="latestContributor">-</span>
+            </div>
           </div>
         </div>
+
         <div id="contributors" class="cards" role="list"></div>
         <div id="loading" class="loading">Loading contributors…</div>
         <div id="error" class="error" hidden>
@@ -91,14 +106,30 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>Built with 💙 for first‑time contributors by Jadu</p>
+        <p>Built with 💙 for first-time contributors by Jadu</p>
       </div>
     </footer>
 
     <script src="./assets/app.js" type="module"></script>
-    
-    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Back to top">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Scroll to Top Button -->
+    <button
+      id="scrollToTop"
+      class="scroll-to-top"
+      aria-label="Scroll to top"
+      title="Back to top"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <polyline points="18 15 12 9 6 15"></polyline>
       </svg>
     </button>

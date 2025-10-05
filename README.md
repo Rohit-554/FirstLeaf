@@ -125,6 +125,7 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/sarthakjalan05"><img src="https://avatars.githubusercontent.com/sarthakjalan05" width="80px;" alt="Sarthak"/></a></td>
     <td align="center"><a href="https://github.com/MRIEnan"><img src="https://avatars.githubusercontent.com/MRIEnan" width="80px;" alt="Mainur"/></a></td>
     <td align="center"><a href="https://github.com/ritwik1709"><img src="https://avatars.githubusercontent.com/ritwikt17" width="80px;" alt="Ritwik"/></a></td>
+    <td align="center"><a href="https://github.com/Steady3099"><img src="https://avatars.githubusercontent.com/Steady3099" width="80px;" alt="Dheeraj Saini"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/anup2702"><sub><b>Anup</b></sub></a></td>
@@ -132,5 +133,12 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/sarthakjalan05"><sub><b>Sarthak</b></sub></a></td>
     <td align="center"><a href="https://github.com/MRIEnan"><sub><b>Mainur</b></sub></a></td>
     <td align="center"><a href="https://github.com/ritwik1709"><sub><b>Ritwik</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Steady3099"><sub><b>Dheeraj Saini</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Kishan8548"><img src="https://avatars.githubusercontent.com/Kishan8548" width="80px;" alt="Kishan Garhwal"/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Kishan8548"><sub><b>Kishan Garhwal</b></sub></a></td>
   </tr>
 </table>
