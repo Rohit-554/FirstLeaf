@@ -21,12 +21,15 @@
     />
   </head>
   <body>
+    <div id="scrollProgress"></div>
     <header class="site-header">
-      <div class="container">
-        <h1>FirstLeaf</h1>
-        <p class="tagline">
-          Make your first pull request — add your name, get featured here.
-        </p>
+      <div class="container header-wrapper">
+        <div class="branding">
+          <h1 class="logo">FirstLeaf</h1>
+          <p class="tagline">
+            Make your first pull request — add your name, get featured here.
+          </p>
+        </div>
         <nav class="actions">
           <a class="btn" id="repoLink" target="_blank" rel="noopener"
             >View Repo</a
@@ -34,59 +37,108 @@
           <a class="btn primary" id="howToContribute" href="#contribute"
             >How to contribute</a
           >
+          <button
+            id="themeToggle"
+            class="btn theme-toggle"
+            aria-label="Toggle theme"
+          >
+            <span id="themeIcon">☀️</span>
+          </button>
         </nav>
       </div>
     </header>
 
     <main class="container">
-      <section aria-labelledby="contributors-title">
-        <div class="list-header">
-          <h2 id="contributors-title">Contributors</h2>
-          <span
-            id="count"
-            class="count"
-            aria-live="polite"
-            aria-atomic="true"
-          ></span>
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search contributors by name or username..."
-              aria-label="Search contributors"
-            />
+      <!-- Contributors Section -->
+      <section
+        aria-labelledby="contributors-title"
+        class="contributors-section"
+      >
+        <div class="section-header">
+          <div class="title-group">
+            <h2 id="contributors-title">Contributors</h2>
+            <span
+              id="count"
+              class="count"
+              aria-live="polite"
+              aria-atomic="true"
+            ></span>
+          </div>
+
+          <div class="controls-group">
+            <div class="search-container">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search contributors..."
+                aria-label="Search contributors"
+              />
+            </div>
+            <div class="sort-container">
+              <label for="sortSelect">Sort by:</label>
+              <select id="sortSelect" aria-label="Sort contributors">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="badge-filters-container">
+            <div class="filter-group">
+              <label>Filter by badge:</label>
+              <div class="badge-filters" id="badgeFilters">
+                <button class="badge-filter active" data-badge="all">All</button>
+                <button class="badge-filter" data-badge="first">🥇 First</button>
+                <button class="badge-filter" data-badge="core">⭐ Core Team</button>
+                <button class="badge-filter" data-badge="top">🏆 Top Contributor</button>
+                <button class="badge-filter" data-badge="helper">🤝 Helper</button>
+                <button class="badge-filter" data-badge="early">🌱 Early Adopter</button>
+                <button class="badge-filter" data-badge="milestone">🎯 Milestone</button>
+              </div>
+            </div>
+            <div class="filter-count" id="filterCount"></div>
           </div>
         </div>
+
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-value" id="totalCount">0</div>
+            <div class="stat-label">Total Contributors</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="latestContributor">-</div>
+            <div class="stat-label">Latest Contributor</div>
+          </div>
+        </div>
+
         <div id="contributors" class="cards" role="list"></div>
+
         <div id="loading" class="loading">Loading contributors…</div>
         <div id="error" class="error" hidden>
           Could not load contributors. Please refresh and try again.
         </div>
       </section>
 
+      <!-- How-to Contribute Section -->
       <section aria-labelledby="contribute" class="howto" id="contribute">
-        <h2 id="contribute">How to contribute</h2>
-        <ol>
+        <div class="howto-header">
+          <h2 id="contribute">How to Contribute</h2>
+          <p class="subtitle">Follow these simple steps to get featured!</p>
+        </div>
+        <ol class="howto-list">
           <li>Fork the repository to your own GitHub account.</li>
+          <li>Create a new branch (e.g., <code>add/your-name</code>).</li>
           <li>
-            Create a new branch for your change (for example,
-            <code>add/your-name</code>).
-          </li>
-          <li>
-            Edit the file <code>data/contributors.ndjson</code> and add one new
-            line following the example shown in that file.
+            Edit <code>data/contributors.ndjson</code> and add a new line.
           </li>
           <li>Commit your change and open a Pull Request.</li>
-          <li>
-            Once merged, your profile will appear here automatically in a minute
-            or two.
-          </li>
+          <li>Once merged, your profile will appear here automatically.</li>
         </ol>
-        <p>Full instructions are in the README if you need more detail.</p>
+        <p class="howto-note">Full instructions are available in the README.</p>
       </section>
     </main>
-
-    <button id="scrollTopBtn" aria-label="Scroll to top"></button>
 
     <footer class="site-footer">
       <div class="container">
@@ -95,5 +147,25 @@
     </footer>
 
     <script src="./assets/app.js" type="module"></script>
+    <button
+      id="scrollToTop"
+      class="scroll-to-top"
+      aria-label="Scroll to top"
+      title="Back to top"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
   </body>
 </html>
