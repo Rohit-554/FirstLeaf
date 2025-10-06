@@ -47,7 +47,7 @@ async function fetchContributors() {
       .filter(Boolean);
 
     function sortContributors(contributors, sortType) {
-      const sorted = [...contributors];
+      const sorted = [...contributors]; 
       switch (sortType) {
         case "newest":
           sorted.sort(
@@ -92,7 +92,7 @@ async function fetchContributors() {
       const contributorElements = [];
 
       // Find the newest contributor once (based on addedAt)
-      const newestContributor = contributors.reduce((latest, curr) => {
+      const newestContributor = people.reduce((latest, curr) => {
         if (!latest) return curr;
         if ((curr.addedAt || "") > (latest.addedAt || "")) {
           return curr;
@@ -146,46 +146,6 @@ async function fetchContributors() {
         top.appendChild(img);
         top.appendChild(info);
 
-        // Add badges if they exist
-        if (p.badges && Array.isArray(p.badges)) {
-          const badgesContainer = document.createElement('div');
-          badgesContainer.className = 'badges';
-          
-          p.badges.forEach(badge => {
-            let badgeInfo;
-            let badgeClass;
-
-            if (typeof badge === 'string') {
-              // Predefined badge
-              badgeInfo = badgeIcons[badge];
-              badgeClass = `badge-${badge}`;
-            } else if (badge && badge.type === 'custom') {
-              // Custom badge
-              badgeInfo = {
-                icon: '', // No icon for custom badges, or define a default
-                label: badge.text || 'Custom',
-                color: badge.color || '#ffffff'
-              };
-              badgeClass = 'badge-custom';
-            }
-
-            if (badgeInfo) {
-              const badgeEl = document.createElement('span');
-              badgeEl.className = `badge ${badgeClass}`;
-              badgeEl.textContent = `${badgeInfo.icon ? badgeInfo.icon + ' ' : ''}${badgeInfo.label}`;
-              badgeEl.title = badgeInfo.label;
-              if (badgeInfo.color && badgeClass === 'badge-custom') {
-                badgeEl.style.background = badgeInfo.color;
-              }
-              badgesContainer.appendChild(badgeEl);
-            }
-          });
-
-          if (badgesContainer.children.length > 0) {
-            card.appendChild(badgesContainer);
-          }
-        }
-
         const meta = document.createElement("div");
         meta.className = "meta";
         if (p.message) meta.textContent = p.message;
@@ -193,11 +153,9 @@ async function fetchContributors() {
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
 
-        // Append card to link, then add to DOM
         a.appendChild(card);
         elList.appendChild(a);
 
-        // Add animation class and index after insertion so animations reliably run
         (function(el, idx){
           requestAnimationFrame(() => {
             el.style.setProperty("--card-index", String(idx));
@@ -218,7 +176,6 @@ async function fetchContributors() {
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
-    // Search functionality
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
@@ -239,7 +196,6 @@ async function fetchContributors() {
         sortedPeople = sortContributors(people, sortType);
         contributorElements = renderContributors(sortedPeople);
 
-        // Reapply search
         const searchInput = document.getElementById("searchInput");
         if (searchInput && searchInput.value) {
           const searchTerm = searchInput.value.toLowerCase();
@@ -254,7 +210,6 @@ async function fetchContributors() {
       });
     }
 
-    // Set up stats
     const latestPerson = sortedPeople[0];
     const totalCountEl = document.getElementById("totalCount");
     const latestContributorEl = document.getElementById("latestContributor");
@@ -274,54 +229,18 @@ async function fetchContributors() {
   }
 }
 
-  function initScrollToTop() {
-    const scrollButton = document.getElementById('scrollToTop');
-    if (!scrollButton) return;
-
-    // Create a sentinel element at the top
-    const sentinel = document.createElement('div');
-    sentinel.style.position = 'absolute';
-    sentinel.style.top = '200px';
-    sentinel.style.height = '1px';
-    document.body.insertBefore(sentinel, document.body.firstChild);
-
-    // Observe when we scroll past the sentinel
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          scrollButton.classList.remove('visible');
-        } else {
-          scrollButton.classList.add('visible');
-        }
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(sentinel);
-
-    scrollButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
 function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
   const html = document.documentElement;
 
-  // Check for saved theme preference or default to 'dark'
   const currentTheme = localStorage.getItem('theme') || 'dark';
   html.setAttribute('data-theme', currentTheme);
   updateThemeIcon(currentTheme);
 
-  // Toggle theme on button click
   themeToggle?.addEventListener('click', () => {
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
@@ -334,35 +253,38 @@ function initThemeToggle() {
   }
 }
 
-function initScrollProgress() {
-  const progressBar = document.getElementById('scrollProgress');
-  if (!progressBar) return;
+function initThemeSelector() {
+  const themeButtons = document.querySelectorAll('.theme-btn');
+  if (themeButtons.length === 0) return;
 
-  function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    progressBar.style.width = `${scrollPercent}%`;
-  }
+  const savedTheme = localStorage.getItem('colorTheme') || 'default';
+  applyTheme(savedTheme);
 
-  window.addEventListener('scroll', updateProgress);
-  updateProgress(); // initialize on load
+  themeButtons.forEach(btn => {
+    const theme = btn.dataset.theme;
+    
+    if (theme === savedTheme) {
+      btn.classList.add('active');
+    }
+
+    btn.addEventListener('click', () => {
+      themeButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyTheme(theme);
+      localStorage.setItem('colorTheme', theme);
+    });
+  });
+}
+
+function applyTheme(theme) {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', theme);
 }
 
 function boot() {
   fetchContributors();
   initThemeToggle();
-  initScrollToTop();
-  initScrollProgress();
+  initThemeSelector();
 }
 
 boot();
-
-const badgeIcons = {
-  first: { icon: '🥇', label: 'First', color: '#ffd700' },
-  core: { icon: '⭐', label: 'Core Team', color: '#667eea' },
-  top: { icon: '🏆', label: 'Top Contributor', color: '#f5576c' },
-  helper: { icon: '🤝', label: 'Helper', color: '#00f2fe' },
-  early: { icon: '🌱', label: 'Early Adopter', color: '#43e97b' },
-  milestone: { icon: '🎯', label: 'Milestone', color: '#fa709a' }
-};
