@@ -136,6 +136,25 @@ async function fetchContributors() {
   }
 }
 
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+  // Show button when user scrolls down 300px from the top
+  window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add('show');
+      } else {
+          scrollTopBtn.classList.remove('show');
+      }
+  });
+  
+  // Scroll to top when button is clicked
+  scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+      });
+    })
+
 function boot() {
   fetchContributors();
 }
