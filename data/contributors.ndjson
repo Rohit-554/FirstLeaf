@@ -1,13 +1,19 @@
-{"name":"Rohit","username":"Rohit-554","github":"https://github.com/Rohit-554","message":"Excited to make my first PR!","addedAt":"2025-09-30T00:00:00.000Z"}
-{"name":"Jadu","username":"Jadu-554","github":"https://github.com/Rohit-554","message":"Hey there i am first time contributor!","addedAt":"2025-09-30T00:00:00.000Z"}
-{"name":"Simon","username":"Simonmatharesh","github":"https://github.com/Simonmatharesh","message":"This is for my Hacktoberfest PR","addedAt":"2025-09-30T00:00:00.000Z"}
-{"name":"Anshu","username":"anshukaushik4700","github":"https://github.com/anshukaushik4700/","message":"my first contribution in hactoberfest","addedAt":"2025-09-30T00:00:00.000Z"}
+{"name":"Rohit","username":"Rohit-554","github":"https://github.com/Rohit-554","message":"Excited to make my first PR!","badges":["top","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
+{"name":"Jadu","username":"Jadu-554","github":"https://github.com/Rohit-554","message":"Hey there i am first time contributor!","badges":["first","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
+{"name":"Simon","username":"Simonmatharesh","github":"https://github.com/Simonmatharesh","message":"This is for my Hacktoberfest PR","badges":["first","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
+{"name":"Anshu","username":"anshukaushik4700","github":"https://github.com/anshukaushik4700/","message":"my first contribution in hactoberfest","badges":["early","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
 {"name":"Shwetank Maurya","username":"Shwetank-Maurya","github":"https://github.com/Shwetank-Maurya/","message":"Magic is here, Learning for the hackoctober Fest"}
 {"name":"Aditya","username":"AdyHACK","github":"https://github.com/AdyHACK","message":"This is my first contribution in Hacktoberfest 2025","addedAt":"2025-09-30T00:00:00.000Z"}
-{"name":"Anup","username":"anup2702","github":"https://github.com/anup2702","message":"This is for my Hacktoberfest PR","addedAt":"2025-09-30T00:00:00.000Z"}
-{"name":"Jatin","username":"jatinagg1","github":"https://github.com/jatinagg1","message":"This is my first Hacktoberfest PR","addedAt":"2025-10-01T00:00:00.000Z"}
+{"name":"Anup","username":"anup2702","github":"https://github.com/anup2702","message":"This is for my Hacktoberfest PR","badges":["helper","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
+{"name":"Jatin","username":"jatinagg1","github":"https://github.com/jatinagg1","message":"This is my first Hacktoberfest PR","badges":["early","core"],"addedAt":"2025-10-01T00:00:00.000Z"}
 {"name":"Sarthak","username":"sarthakjalan05","github":"https://github.com/sarthakjalan05","message":"This is my first Hacktoberfest PR","addedAt":"2025-10-01T00:00:00.000Z"}
-{"name":"Mainur","username":"MRIEnan","github":"https://github.com/MRIEnan","message":"Let's contribute together!","addedAt":"2025-10-01T00:00:00.000Z"}
-{"name":"Ritwik","username":"ritwikt17","github":"https://github.com/ritwik1709","message":"Getting started with my first contribution in open source","addedAt":"2025-10-02T00:00:00.000Z"}
-{"name":"Dheeraj Saini","username":"Steady3099","github":"https://github.com/Steady3099","message":"My first PR!!...Excited for the open source world.","addedAt":"2025-10-03T00:00:00.000Z"}
-{"name":"Biswasmruti Pradhan","username":"Rabi22","github":"https://github.com/Rabi22","message":"My first PR!!...Excited for the open source world.","addedAt":"2025-10-04T00:00:00.000Z"}
+{"name":"Mainur","username":"MRIEnan","github":"https://github.com/MRIEnan","message":"Let's contribute together!","badges":["helper","core"],"addedAt":"2025-10-01T00:00:00.000Z"}
+{"name":"Ritwik","username":"ritwikt17","github":"https://github.com/ritwik1709","message":"Getting started with my first contribution in open source","badges":["early","core"],"addedAt":"2025-10-02T00:00:00.000Z"}
+{"name":"Dheeraj Saini","username":"Steady3099","github":"https://github.com/Steady3099","message":"My first PR!!...Excited for the open source world.","badges":["first","core"],"addedAt":"2025-10-03T00:00:00.000Z"}
+{"name":"Kishan Garhwal","username":"Kishan8548","github":"https://github.com/Kishan8548","message":"This is for hacktoberfest","badges":["helper","core"],"addedAt":"2025-10-04T12:00:00.000Z"}
+{"name":"Divyansh Raj Soni","username":"DivyanshRajSoni","github":"https://github.com/DivyanshRajSoni","message":"Excited to make my first PR!","badges":["first","core"],"addedAt":"2025-10-05T00:00:00.000Z"}
+{"name":"Ada Lovelace","username":"ada","github":"https://github.com/ada","message":"Hello, world!","badges":["helper","core"],"addedAt":"2025-01-01T12:00:00.000Z"}
+{"name":"Grace Hopper","username":"grace","badges":[{"type":"custom","text":"Bug Hunter","color":"#ff6b6b"}],"message":"Found 10 bugs!"}
+{"name":"Atharv Nikam","username":"atharvnikam38","github":"https://github.com/atharvnikam38","message":"Excited to contribute to open source through Hacktoberfest!","addedAt":"2025-10-05T00:00:00.000Z"}
+{"name":"Nidhish Zala","username":"ZalaNidhish","github":"https://github.com/ZalaNidhish","message":"Finding Ways To Contribute to get hacktober 2k25 t-shirt 😋","addedAt":"2025-10-05T00:00:00.000Z"}
+{"name":"Biswasmruti Pradhan","username":"Rabi22","github":"https://github.com/Rabi22","message":"Just exploring open source contribution","addedAt":"2025-10-06"}
