@@ -486,7 +486,6 @@ main.container {
   padding: 0.6rem 1rem;
 }
 
-
 .howto {
   margin-top: 3rem;
   background: rgba(255, 255, 255, 0.03);
@@ -1488,5 +1487,425 @@ main.container {
     text-align: center;
     margin-left: 0;
     margin-top: 0.25rem;
+  }
+}
+
+/* --- STATS PAGE STYLES --- */
+.stats-section {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stats-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.stats-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Badge Distribution Styles */
+.badge-distribution {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.badge-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-stat-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0.6;
+}
+
+.badge-stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.04)
+  );
+}
+
+.badge-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  padding: 0.3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.badge-count {
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--accent-2);
+  background: rgba(107, 226, 255, 0.12);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(107, 226, 255, 0.15);
+  min-width: 28px;
+  text-align: center;
+}
+
+.badge-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 0.2rem;
+}
+
+.badge-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 0 4px rgba(107, 226, 255, 0.2);
+}
+
+.badge-bar-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Growth Chart Styles */
+.growth-chart {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 8px;
+}
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  height: 200px;
+  padding: 0.75rem 0.6rem 1.5rem;
+  overflow-x: auto;
+  position: relative;
+  width: 100%;
+}
+
+.bar-chart::before {
+  content: "";
+  position: absolute;
+  bottom: 0.6rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 50px;
+  position: relative;
+  flex: 1;
+  max-width: 80px;
+}
+
+.bar-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  flex-grow: 1;
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 3px 3px 0 0;
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 0 8px rgba(107, 226, 255, 0.2);
+  min-height: 5px;
+}
+
+.bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px 3px 0 0;
+}
+
+.bar-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+.bar-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  background: rgba(107, 226, 255, 0.08);
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Name Statistics Styles */
+.name-statistics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.name-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(107, 226, 255, 0.08);
+  border: 1px solid rgba(107, 226, 255, 0.15);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.name-stat-item:hover {
+  background: rgba(107, 226, 255, 0.12);
+  border-color: rgba(107, 226, 255, 0.25);
+  transform: scale(1.02);
+}
+
+.name-stat-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.name-stat-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  white-space: nowrap;
+}
+
+/* Add icon before each stat item */
+.name-stat-item::before {
+  content: "👤";
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Fun Facts Styles */
+.fun-facts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.fun-facts-list li {
+  padding: 1.5rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  position: relative;
+  padding-left: 3.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.fun-facts-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+.fun-facts-list li::before {
+  content: "✨";
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Mobile Responsiveness for Stats */
+@media (max-width: 768px) {
+  .stats-section {
+    gap: 2rem;
+  }
+
+  .stats-card {
+    padding: 1.5rem;
+  }
+
+  .stats-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .badge-distribution {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .badge-stat-item {
+    padding: 1rem;
+  }
+
+  .badge-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
+  }
+
+  .bar-chart {
+    height: 200px;
+    gap: 1rem;
+    padding: 1rem 0.5rem 0.5rem;
+  }
+
+  .bar-item {
+    min-width: 60px;
+  }
+
+  .name-statistics {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .name-stat-item {
+    padding: 1rem;
+  }
+
+  .fun-facts-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .fun-facts-list li {
+    padding: 1rem 1rem 1rem 2.5rem;
+  }
+
+  .fun-facts-list li::before {
+    left: 1rem;
+    top: 1rem;
   }
 }
