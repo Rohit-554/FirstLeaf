@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FirstLeaf — Statistics</title>
+    <meta
+      name="description"
+      content="Contributor statistics and analytics for the FirstLeaf project."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🩵</text></svg>"
+    />
+  </head>
+  <body>
+    <div id="scrollProgress"></div>
+    <header class="site-header">
+      <div class="container header-wrapper">
+        <div class="branding">
+          <h1 class="logo">FirstLeaf</h1>
+          <p class="tagline">Contributor Statistics and Analytics</p>
+        </div>
+        <nav class="actions">
+          <a class="btn" href="index.html">← Back to Contributors</a>
+          <div class="theme-selector-wrapper">
+            <label for="colorThemeSelect" class="sr-only"
+              >Select Color Theme</label
+            >
+            <select
+              id="colorThemeSelect"
+              class="btn theme-select"
+              aria-label="Select color theme"
+            >
+              <option value="dark">🌙 Dark</option>
+              <option value="light">☀️ Light</option>
+              <option value="ocean">🌊 Ocean Blue</option>
+              <option value="forest">🌲 Forest Green</option>
+              <option value="sunset">🌅 Sunset Orange</option>
+              <option value="galaxy">🌌 Purple Galaxy</option>
+            </select>
+          </div>
+          <button
+            id="themeToggle"
+            class="btn theme-toggle"
+            aria-label="Toggle theme"
+            style="display: none"
+          >
+            <span id="themeIcon">☀️</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container stats-container">
+      <!-- Stats Overview Section -->
+      <section aria-labelledby="stats-title" class="stats-section">
+        <div class="section-header">
+          <div class="title-group">
+            <h2 id="stats-title">📊 Contributor Statistics</h2>
+            <p class="stats-subtitle">
+              Explore insights and analytics about our amazing contributors
+            </p>
+          </div>
+        </div>
+
+        <!-- Overview Stats Cards -->
+        <div class="stats-overview-grid">
+          <div class="stat-card stat-card-primary">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <div class="stat-value" id="totalContributors">0</div>
+              <div class="stat-label">Total Contributors</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card-secondary">
+            <div class="stat-icon">✨</div>
+            <div class="stat-content">
+              <div class="stat-value" id="newestContributor">-</div>
+              <div class="stat-label">Newest Contributor</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card-tertiary">
+            <div class="stat-icon">🌟</div>
+            <div class="stat-content">
+              <div class="stat-value" id="firstContributor">-</div>
+              <div class="stat-label">First Contributor</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card-accent">
+            <div class="stat-icon">📈</div>
+            <div class="stat-content">
+              <div class="stat-value" id="avgPerMonth">0</div>
+              <div class="stat-label">Avg. Per Month</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Layout for Badge and Growth -->
+        <div class="stats-two-column">
+          <!-- Badge Distribution -->
+          <div class="stats-card stats-card-large">
+            <div class="stats-card-header">
+              <h3>🏷️ Badge Distribution</h3>
+              <p class="stats-card-subtitle">
+                Achievements earned by contributors
+              </p>
+            </div>
+            <div id="badgeDistribution" class="badge-distribution">
+              <div class="loading">Loading statistics...</div>
+            </div>
+          </div>
+
+          <!-- Growth Over Time -->
+          <div class="stats-card stats-card-large">
+            <div class="stats-card-header">
+              <h3>📈 Growth Over Time</h3>
+              <p class="stats-card-subtitle">Cumulative contributor growth</p>
+            </div>
+            <div id="growthChart" class="growth-chart">
+              <div class="loading">Loading statistics...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Layout for Names and Fun Facts -->
+        <div class="stats-two-column">
+          <!-- Name Statistics -->
+          <div class="stats-card">
+            <div class="stats-card-header">
+              <h3>👤 Name Statistics</h3>
+              <p class="stats-card-subtitle">Interesting patterns in names</p>
+            </div>
+            <div id="nameStatistics" class="name-statistics">
+              <div class="loading">Loading statistics...</div>
+            </div>
+          </div>
+
+          <!-- Fun Facts -->
+          <div class="stats-card stats-card-highlight">
+            <div class="stats-card-header">
+              <h3>🎯 Fun Facts & Trivia</h3>
+              <p class="stats-card-subtitle">Discover fascinating insights</p>
+            </div>
+            <div id="funFacts" class="fun-facts">
+              <div class="loading">Loading statistics...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Built with 💙 for first‑time contributors by Jadu</p>
+      </div>
+    </footer>
+
+    <script src="./assets/stats.js"></script>
+    <button
+      id="scrollToTop"
+      class="scroll-to-top"
+      aria-label="Scroll to top"
+      title="Back to top"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </body>
+</html>

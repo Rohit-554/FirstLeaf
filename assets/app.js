@@ -4,6 +4,11 @@ async function fetchContributors() {
   const elLoading = document.getElementById("loading");
   const elError = document.getElementById("error");
   const sortSelect = document.getElementById("sortSelect");
+  const elSpotlight = document.getElementById("spotlight");
+  const elShowAnother = document.getElementById("show-another");
+
+  let contributors = [];
+  let lastSpotlightIndex = -1;
 
   // Resolve repo URL automatically on GitHub Pages, or use a provided override
   function detectRepoUrl() {
@@ -24,6 +29,49 @@ async function fetchContributors() {
     repoLink.href = resolvedRepoUrl;
   } else if (repoLink) {
     repoLink.remove();
+  }
+
+  function showSpotlight() {
+    if (contributors.length === 0) {
+      // Hide the spotlight section if there are no contributors
+      const spotlightSection = document.getElementById("spotlight-section");
+      if (spotlightSection) spotlightSection.style.display = "none";
+      return;
+    }
+
+    const spotlightSection = document.getElementById("spotlight-section");
+    if (spotlightSection) spotlightSection.style.display = "";
+
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * contributors.length);
+    } while (contributors.length > 1 && randomIndex === lastSpotlightIndex);
+
+    lastSpotlightIndex = randomIndex;
+    const person = contributors[randomIndex];
+
+    elSpotlight.innerHTML = `
+      <div class="spotlight-content">
+        <img src="${
+          person.avatar ||
+          `https://avatars.githubusercontent.com/${person.username || ""}`
+        }" alt="${person.name || person.username || "Contributor"} avatar">
+        <div class="spotlight-text">
+          <div class="spotlight-header">⭐ Contributor Spotlight</div>
+          <div class="spotlight-name">${person.name || "Anonymous"}</div>
+          <div class="spotlight-message">"${
+            person.message || "No message"
+          }"</div>
+        </div>
+      </div>
+      <button id="show-another" class="btn">🎲 Show Another</button>
+    `;
+
+    // Re-add event listener for the new button
+    const newShowAnotherButton = document.getElementById("show-another");
+    if (newShowAnotherButton) {
+      newShowAnotherButton.addEventListener("click", showSpotlight);
+    }
   }
 
   try {
@@ -433,6 +481,7 @@ async function fetchContributors() {
       return contributorElements;
     }
 
+    contributors = people;
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
@@ -547,6 +596,7 @@ async function fetchContributors() {
       people.length === 1 ? "" : "s"
     }`;
     elLoading.remove();
+    showSpotlight(); // Initial spotlight
   } catch (err) {
     console.error(err);
     elError.hidden = false;
@@ -589,30 +639,33 @@ function initScrollToTop() {
 }
 
 function initThemeToggle() {
-  const themeToggle = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
+  const colorThemeSelect = document.getElementById("colorThemeSelect");
   const html = document.documentElement;
 
-  // Check for saved theme preference or default to 'dark'
-  const currentTheme = localStorage.getItem("theme") || "dark";
-  html.setAttribute("data-theme", currentTheme);
-  updateThemeIcon(currentTheme);
-
-  // Toggle theme on button click
-  themeToggle?.addEventListener("click", () => {
-    const currentTheme = html.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-    html.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    updateThemeIcon(newTheme);
-  });
-
-  function updateThemeIcon(theme) {
-    if (themeIcon) {
-      themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
+  if (!colorThemeSelect) {
+    console.warn("Color theme selector not found!");
+    return;
   }
+
+  // Check for saved theme preference or default to 'dark'
+  const currentTheme = localStorage.getItem("colorTheme") || "dark";
+  html.setAttribute("data-theme", currentTheme);
+  colorThemeSelect.value = currentTheme;
+  console.log(`Initial color theme set to: ${currentTheme}`);
+
+  // Change theme on dropdown selection
+  colorThemeSelect.addEventListener("change", (e) => {
+    const newTheme = e.target.value;
+    html.setAttribute("data-theme", newTheme);
+    localStorage.setItem("colorTheme", newTheme);
+    console.log(`Color theme switched to: ${newTheme}`);
+
+    // Add a brief animation class for smooth transition
+    html.classList.add("theme-transitioning");
+    setTimeout(() => {
+      html.classList.remove("theme-transitioning");
+    }, 300);
+  });
 }
 
 function initScrollProgress() {

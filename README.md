@@ -151,4 +151,10 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/atharvnikam38"><sub><b>Atharv Nikam</b></sub></a></td>
     <td align="center"><a href="https://github.com/ZalaNidhish"><sub><b>Nidhish Zala</b></sub></a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><img src="https://avatars.githubusercontent.com/Sanskar-Agrawal01" width="80px;" alt="Sanskar Agrawal"/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><sub><b>Sanskar Agrawal</b></sub></a></td>
+  </tr>
 </table>

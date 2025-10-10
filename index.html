@@ -34,13 +34,32 @@
           <a class="btn" id="repoLink" target="_blank" rel="noopener"
             >View Repo</a
           >
+          <a class="btn" href="stats.html">📊 Stats</a>
           <a class="btn primary" id="howToContribute" href="#contribute"
             >How to contribute</a
           >
+          <div class="theme-selector-wrapper">
+            <label for="colorThemeSelect" class="sr-only"
+              >Select Color Theme</label
+            >
+            <select
+              id="colorThemeSelect"
+              class="btn theme-select"
+              aria-label="Select color theme"
+            >
+              <option value="dark">🌙 Dark</option>
+              <option value="light">☀️ Light</option>
+              <option value="ocean">🌊 Ocean Blue</option>
+              <option value="forest">🌲 Forest Green</option>
+              <option value="sunset">🌅 Sunset Orange</option>
+              <option value="galaxy">🌌 Purple Galaxy</option>
+            </select>
+          </div>
           <button
             id="themeToggle"
             class="btn theme-toggle"
             aria-label="Toggle theme"
+            style="display: none"
           >
             <span id="themeIcon">☀️</span>
           </button>
@@ -49,7 +68,6 @@
     </header>
 
     <main class="container">
-      <!-- Contributors Section -->
       <section
         aria-labelledby="contributors-title"
         class="contributors-section"
@@ -89,29 +107,36 @@
             <div class="filter-group">
               <label>Filter by badge:</label>
               <div class="badge-filters" id="badgeFilters">
-                <button class="badge-filter active" data-badge="all">All</button>
-                <button class="badge-filter" data-badge="first">🥇 First</button>
-                <button class="badge-filter" data-badge="core">⭐ Core Team</button>
-                <button class="badge-filter" data-badge="top">🏆 Top Contributor</button>
-                <button class="badge-filter" data-badge="helper">🤝 Helper</button>
-                <button class="badge-filter" data-badge="early">🌱 Early Adopter</button>
-                <button class="badge-filter" data-badge="milestone">🎯 Milestone</button>
+                <button class="badge-filter active" data-badge="all">
+                  All
+                </button>
+                <button class="badge-filter" data-badge="first">
+                  🥇 First
+                </button>
+                <button class="badge-filter" data-badge="core">
+                  ⭐ Core Team
+                </button>
+                <button class="badge-filter" data-badge="top">
+                  🏆 Top Contributor
+                </button>
+                <button class="badge-filter" data-badge="helper">
+                  🤝 Helper
+                </button>
+                <button class="badge-filter" data-badge="early">
+                  🌱 Early Adopter
+                </button>
+                <button class="badge-filter" data-badge="milestone">
+                  🎯 Milestone
+                </button>
               </div>
             </div>
             <div class="filter-count" id="filterCount"></div>
           </div>
         </div>
 
-        <div class="stats-cards">
-          <div class="stat-card">
-            <div class="stat-value" id="totalCount">0</div>
-            <div class="stat-label">Total Contributors</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="latestContributor">-</div>
-            <div class="stat-label">Latest Contributor</div>
-          </div>
-        </div>
+        <section id="spotlight-section">
+          <div id="spotlight" class="spotlight-card"></div>
+        </section>
 
         <div id="contributors" class="cards" role="list"></div>
 
@@ -121,7 +146,6 @@
         </div>
       </section>
 
-      <!-- How-to Contribute Section -->
       <section aria-labelledby="contribute" class="howto" id="contribute">
         <div class="howto-header">
           <h2 id="contribute">How to Contribute</h2>
