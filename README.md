@@ -3,7 +3,7 @@
 A tiny, friendly GitHub Pages site for first-time contributors to make their very first pull request. Add your name and GitHub link to a simple data file, open a PR, and see yourself appear on the live website
 
 
-```please Note: This repository might not be eligible for hactoberfest 2025, but this is a solid one to get started and give you confidence```
+```Please Note : This repository might not be eligible for hactoberfest 2025, but this is a solid one to get started and give you confidence```
 
 See yourself: https://rohit-554.github.io/FirstLeaf/
 
