@@ -170,11 +170,17 @@ Thank you to all the amazing contributors who have helped make this project bett
   <tr>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
     <td align="center"><a href="https://github.com/suthakaranburaj"><img src="https://avatars.githubusercontent.com/suthakaranburaj" width="80px;" alt="Suthakar Anburaj"/></a></td>
+    <td align="center"><a href="https://github.com/chakri-chris"><img src="https://avatars.githubusercontent.com/Chakri-chris" width="80px;" alt="Chakradhar"/></a></td>
+    <td align="center"><a href="https://github.com/stom-breaker-07"><img src="https://avatars.githubusercontent.com/stom-breaker-07" width="80px;" alt="Chinmay L"/></a></td>
     <td align="center"><a href="https://github.com/abhijeetpatilrm"><img src="https://avatars.githubusercontent.com/abhijeetpatilrm" width="80px;" alt="Abhijeet Patil"/></a></td>
+    <td align="center"><a href="https://github.com/swastikpratik-bit"><img src="https://avatars.githubusercontent.com/swastikpratik-bit" width="80px;" alt="Swastik Pratik Singh"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><sub><b>Lalit Rathod</b></sub></a></td>
     <td align="center"><a href="https://github.com/suthakaranburaj"><sub><b>Suthakar Anburaj</b></sub></a></td>
+    <td align="center"><a href="https://github.com/chakri-chris"><sub><b>Chakradhar</b></sub></a></td>
+    <td align="center"><a href="https://github.com/stom-breaker-07"><sub><b>Chinmay L</b></sub></a></td>
     <td align="center"><a href="https://github.com/abhijeetpatilrm"><sub><b>Abhijeet Patil</b></sub></a></td>
+    <td align="center"><a href="https://github.com/swastikpratik-bit"><sub><b>Swastik Pratik Singh</b></sub></a></td>
   </tr>
 </table>
