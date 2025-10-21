@@ -604,6 +604,7 @@ async function fetchContributors() {
   }
 }
 
+// Removed duplicate scroll-to-top functionality. Use initScrollToTop() instead.
 function initScrollToTop() {
   const scrollButton = document.getElementById("scrollToTop");
   if (!scrollButton) return;
