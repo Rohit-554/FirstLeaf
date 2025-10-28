@@ -1076,6 +1076,7 @@ main.container {
 
 .stats-container {
   padding: 2.5rem 0 4rem;
+  
 }
 
 .stats-section .section-header {
@@ -1126,13 +1127,11 @@ main.container {
 .stat-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  inset: 0;
+  border: 3px solid transparent;
+  border-radius: 8px; /* optional */
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 1s ease;
 }
 
 .stat-card:hover {
@@ -1218,11 +1217,7 @@ main.container {
 
 /* Stats Cards (larger content blocks) */
 .stats-card {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.01)
-  );
+  background: black;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
@@ -1235,7 +1230,7 @@ main.container {
 .stats-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 1);
 }
 
 .stats-card-large {
@@ -1296,7 +1291,7 @@ main.container {
 }
 
 .badge-stat-item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.07);
   transform: translateX(4px);
 }
 
@@ -1493,7 +1488,7 @@ main.container {
 }
 
 .name-stat-item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.07);
   transform: translateX(4px);
   border-left-color: var(--accent);
 }
@@ -2419,4 +2414,42 @@ main.container {
     margin-left: 0;
     margin-top: 0.25rem;
   }
+}
+
+
+.new-tile-group {
+  display: flex;
+}
+
+.stats-logo {
+  font-size: 5rem;
+}
+
+.stats-title-P {
+  font-size: 3rem;
+  margin-right: 5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.stats-subtitle-P {
+  margin-right: 5rem;
+  font-size: 1.1rem;
+  color: var(--muted)
+}
+
+.stats-card-large-P {
+  background: black;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  
+  transition: all 0.3s ease;
+  overflow: hidden;
+  
+}
+
+.stats-card-large-P:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 1);
 }
