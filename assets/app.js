@@ -797,4 +797,5 @@ const badgeIcons = {
   helper: { icon: "🤝", label: "Helper", color: "#00f2fe" },
   early: { icon: "🌱", label: "Early Adopter", color: "#43e97b" },
   milestone: { icon: "🎯", label: "Milestone", color: "#fa709a" },
+
 };
