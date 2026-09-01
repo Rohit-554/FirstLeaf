@@ -221,10 +221,12 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/Nikunj2104"><img src="https://avatars.githubusercontent.com/Nikunj2104" width="80px;" alt="Nikunj Shah"/></a></td>
     <td align="center"><a href="https://github.com/MAHEK-ops"><img src="https://avatars.githubusercontent.com/MAHEK-ops" width="80px;" alt="Mahek"/></a></td>
     <td align="center"><a href="https://github.com/DarshanAjudiya7"><img src="https://avatars.githubusercontent.com/DarshanAjudiya7" width="80px;" alt="Darshan Ajudiya"/></a></td>
+    <td align="center"><a href="https://github.com/aisha2106"><img src="https://avatars.githubusercontent.com/aisha2106" width="80px;" alt="Aisha Adamu"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Nikunj2104"><sub><b>Nikunj Shah</b></sub></a></td>
     <td align="center"><a href="https://github.com/MAHEK-ops"><sub><b>Mahek</b></sub></a></td>
     <td align="center"><a href="https://github.com/DarshanAjudiya7"><sub><b>Darshan Ajudiya</b></sub></a></td>
+    <td align="center"><a href="https://github.com/aisha2106"><sub><b>Aisha Adamu</b></sub></a></td>
   </tr>
 </table>
